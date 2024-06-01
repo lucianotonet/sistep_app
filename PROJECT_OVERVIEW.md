@@ -4,7 +4,7 @@
 
 ### Contexto do Projeto
 
-Um time multidisciplinar composto por um desenvolvedor de software e uma estudante de mestrado em psicologia está trabalhando em um projeto para desenvolver uma plataforma online destinada à aplicação e correção de testes psicológicos. O foco principal do projeto é avaliar a aceitação dessa plataforma por parte de psicólogos e seus pacientes/clientes, levando em consideração aspectos como facilidade de uso, confiabilidade, confidencialidade e satisfação geral dos usuários. O primeiro teste a ser implementado na plataforma será o DASS-21 (Depression Anxiety Stress Scales), amplamente utilizado para avaliar sintomas de depressão, ansiedade e estresse.
+Um time multidisciplinar composto por Angélica, mestranda em psicologia e responsável pela pesquisa, e Luciano, desenvolvedor de software focado na viabilidade comercial do projeto, está trabalhando em uma plataforma online destinada à aplicação e correção de testes psicológicos. O foco principal do projeto é avaliar a aceitação dessa plataforma por parte de psicólogos e seus pacientes/clientes, considerando aspectos como facilidade de uso, confiabilidade, confidencialidade e satisfação geral dos usuários. O primeiro teste a ser implementado na plataforma será o DASS-21 (Depression Anxiety Stress Scales), amplamente utilizado para avaliar sintomas de depressão, ansiedade e estresse.
 
 ### Objetivo
 
@@ -24,7 +24,7 @@ O objetivo central deste projeto é avaliar a aceitação de uma plataforma onli
 
 ### Abordagem Técnica
 
-O desenvolvimento técnico da plataforma utilizará o framework Laravel com a biblioteca Filament para a interface administrativa de gerenciamento e correção de testes por psicólogos, proporcionando um ambiente de desenvolvimento eficiente e uma interface robusta.
+O desenvolvimento técnico da plataforma utilizará o framework Laravel com a biblioteca Filament para a interface administrativa de gerenciamento e correção de testes por psicólogos, proporcionando um ambiente de desenvolvimento eficiente e uma interface robusta. O frontend será desenvolvido utilizando Nuxt.js com TailwindCSS, garantindo uma interface dinâmica e responsiva.
 
 #### Componentes Principais
 
@@ -37,6 +37,8 @@ O desenvolvimento técnico da plataforma utilizará o framework Laravel com a bi
 3. **Interface Dinâmica**: Para suportar uma interface dinâmica e responsiva, a plataforma utilizará tecnologias como Vue.js, Laravel Blade ou Alpine.js, permitindo a renderização de diferentes formatos de perguntas com base nos dados estruturados.
 
 4. **Recursos Administrativos**: A biblioteca Filament será empregada para criar uma interface de administração elegante, na qual os psicólogos poderão gerenciar testes, visualizar resultados e realizar correções.
+
+5. **Confirmação de Profissionais**: Durante o cadastro, será exigido o campo CRP para validar que o usuário é um psicólogo, garantindo a autenticidade dos profissionais que utilizarão a plataforma.
 
 ### Considerações para Implementação
 
