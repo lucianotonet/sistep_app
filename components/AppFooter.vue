@@ -1,6 +1,6 @@
 <template>
     <footer
-        class="flex h-auto items-center gap-4 pt-2 px-2 md:px-4 lg:h-[60px] lg:px-6 sticky bottom-0 bg-background z-20 justify-between">
+        class="flex h-auto items-center gap-4 pt-2 md:px-4 lg:h-[60px] lg:px-6 sticky bottom-0 bg-background z-20 justify-between">
         <small class="text-muted-foreground text-2xs opacity-50">
             &copy; {{ new Date().getFullYear() }} SISTEP. Todos os direitos reservados.
         </small>
