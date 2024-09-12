@@ -1,46 +1,62 @@
 <template>
   <main class="flex flex-1 flex-col leading-tight select-none p-4 w-full">
     <transition name="fade" mode="out-in">
-      <!-- <div v-if="false" :key="'question-' + currentQuestion" -->
       <div v-if="currentQuestion < questions.length" :key="'question-' + currentQuestion"
         class="flex flex-col text-left gap-4 flex-1 w-full justify-between h-full">
-        <p class="mb-4 text-xs text-muted-foreground">Questão {{ currentQuestion + 1 }} de {{ questions.length }}</p>
-        <p class="mb-4 text-2xl">
-          <small class="text-muted-foreground">Na última semana...</small><br />
+        <p :class="`text-xs mb-4 text-muted-foreground`">Questão {{
+          currentQuestion + 1 }} de
+          {{ questions.length }}</p>
+        <!-- <p :class="`text-${getSmallerFontSize(testStore.fontSize)} mb-4 text-muted-foreground`">Questão {{
+          currentQuestion + 1 }} de
+          {{ questions.length }}</p> -->
+        <p :class="`text-${getLargerFontSize(testStore.fontSize)} mb-4`">
+          <small :class="`text-${getSmallerFontSize(testStore.fontSize)} text-muted-foreground`">Na última
+            semana...</small><br />
           {{ questions[currentQuestion].text }}
         </p>
         <RadioGroup v-model="selectedOption">
           <div v-for="(option, index) in options" :key="index" class="mb-2 flex gap-2 items-center">
             <RadioGroupItem :id="'option-' + index" :value="String(index)" />
-            <Label :for="'option-' + index" class="ml-2 w-full text-left cursor-pointer">{{ option }}</Label>
+            <Label :for="'option-' + index"
+              :class="`text-${testStore.fontSize} ml-2 w-full text-left cursor-pointer`">{{ option }}</Label>
           </div>
         </RadioGroup>
+        <!-- <div class="flex justify-between gap-4">
+          <Button v-if="currentQuestion > 0" @click="goBack" variant="link" size="sm"
+            :class="`text-${testStore.fontSize}`">← Voltar</Button>
+          <Button @click="answerQuestion" class="ml-auto" variant="default" size="sm"
+            :class="`text-${testStore.fontSize}`" :disabled="selectedOption === null">Continuar →</Button>
+        </div> -->
         <div class="flex justify-between gap-4">
-          <Button v-if="currentQuestion > 0" @click="goBack" variant="link" size="sm">← Voltar</Button>
-          <Button @click="answerQuestion" class="ml-auto" variant="default" size="sm" :disabled="selectedOption === null">Continuar
-            →</Button>
+          <Button v-if="currentQuestion > 0" @click="goBack" variant="link" size="sm"
+            :class="`text-base`">← Voltar</Button>
+          <Button @click="answerQuestion" class="ml-auto" variant="default" size="sm"
+            :class="`text-base`" :disabled="selectedOption === null">Continuar →</Button>
         </div>
       </div>
-      <div v-else :key="'results'" class="flex flex-col text-left gap-10 flex-1 w-full items-center justify-center h-full">
-        <p class="mb-4 text-2xl font-bold">Questionário concluído!</p>
-        <p class="mb-2 text-lg text-muted-foreground">Resultados:</p>
+      <div v-else :key="'results'"
+        class="flex flex-col text-left gap-10 flex-1 w-full items-center justify-center h-full">
+        <p :class="`text-${getLargerFontSize(testStore.fontSize)} mb-4`">Questionário concluído!</p>
+        <p :class="`text-${testStore.fontSize} text-muted-foreground mb-2`">Resultados:</p>
         <div class="flex flex-row items-center gap-10">
           <div class="flex flex-col items-center gap-0">
-            <span class="text-xl font-semibold">{{ results.depression }}</span>
-            <span class="text-sm text-muted-foreground">Depressão</span>
+            <span :class="`text-${getLargerFontSize(testStore.fontSize)}`">{{ results.depression }}</span>
+            <span :class="`text-${testStore.fontSize} text-muted-foreground`">Depressão</span>
           </div>
           <div class="flex flex-col items-center gap-0">
-            <span class="text-xl font-semibold">{{ results.anxiety }}</span>
-            <span class="text-sm text-muted-foreground">Ansiedade</span>
+            <span :class="`text-${getLargerFontSize(testStore.fontSize)}`">{{ results.anxiety }}</span>
+            <span :class="`text-${testStore.fontSize} text-muted-foreground`">Ansiedade</span>
           </div>
           <div class="flex flex-col items-center gap-0">
-            <span class="text-xl font-semibold">{{ results.stress }}</span>
-            <span class="text-sm text-muted-foreground">Estresse</span>
+            <span :class="`text-${getLargerFontSize(testStore.fontSize)}`">{{ results.stress }}</span>
+            <span :class="`text-${testStore.fontSize} text-muted-foreground`">Estresse</span>
           </div>
         </div>
         <div class="flex flex-col gap-2 mt-6">
-          <Button @click="restartTest" variant="secondary" size="sm">Refazer Teste</Button>
-          <Button @click="shareResults" variant="default" size="sm">Enviar Resultados</Button>
+          <Button @click="restartTest" variant="secondary" size="sm" :class="`text-${testStore.fontSize}`">Refazer
+            Teste</Button>
+          <Button @click="shareResults" variant="default" size="sm" :class="`text-${testStore.fontSize}`">Enviar
+            Resultados</Button>
         </div>
       </div>
     </transition>
@@ -48,9 +64,24 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { useTestStore } from '~/stores/test';
+
+const testStore = useTestStore();
+
+const sizes = ['3xs', '2xs', 'xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl'];
+
+const getSmallerFontSize = (currentSize) => {
+  const currentIndex = sizes.indexOf(currentSize);
+  return currentIndex > 0 ? sizes[currentIndex - 1] : currentSize;
+};
+
+const getLargerFontSize = (currentSize) => {
+  const currentIndex = sizes.indexOf(currentSize);
+  return currentIndex < sizes.length - 1 ? sizes[currentIndex + 1] : currentSize;
+};
 
 const questions = ref([
   { text: 'Eu achei difícil acalmar-me.', category: 'stress' },
@@ -82,11 +113,8 @@ const selectedOption = ref(null);
 const answers = ref([]);
 const results = ref({ depression: 0, anxiety: 0, stress: 0 });
 
-const testStore = useTestStore()
-
 testStore.initializeNewTest()
 
-// use test layout
 definePageMeta({
   layout: 'test'
 })

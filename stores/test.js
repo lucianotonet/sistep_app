@@ -5,6 +5,7 @@ export const useTestStore = defineStore('test', {
     currentTest: null,
     questions: [],
     answers: {},
+    fontSize: 'base', // Tamanho padrão
   }),
   actions: {
     initializeNewTest() {
@@ -13,15 +14,12 @@ export const useTestStore = defineStore('test', {
       this.answers = {}
     },
     async loadTestFromQRCode(qrCodeData) {
-      // Implementar lógica para carregar o teste a partir dos dados do QR Code
-      // Por exemplo, fazer uma chamada à API com o ID do teste
       const testData = await fetchTestFromAPI(qrCodeData)
       this.currentTest = testData
       this.questions = testData.questions
       this.answers = {}
     },
     async loadTestFromCode(testCode) {
-      // Implementar lógica similar à loadTestFromQRCode, mas usando o código do teste
       const testData = await fetchTestFromAPI(testCode)
       this.currentTest = testData
       this.questions = testData.questions
@@ -29,6 +27,9 @@ export const useTestStore = defineStore('test', {
     },
     setAnswer(questionId, answer) {
       this.answers[questionId] = answer
+    },
+    setFontSize(size) {
+      this.fontSize = size; // Apenas atualiza o estado
     },
   },
 })

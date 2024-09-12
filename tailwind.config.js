@@ -26,17 +26,17 @@ module.exports = {
         ],
       },      
       fontSize: {
-        '3xs': '0.55rem',
-        '2xs': '0.66rem',
-        xs: '0.77rem',
-        sm: '0.88rem',
-        base: '0.99rem',
-        default: '1.1rem',
-        lg: '1.21rem',
-        xl: '1.32rem',
-        '2xl': '1.43rem',
-        '3xl': '1.54rem',
-        '4xl': '1.65rem',
+        '2xs': '0.625rem',  // 10px
+        'xs': '0.75rem',    // 12px
+        'sm': '0.875rem',   // 14px
+        'base': '1rem',     // 16px (padrão)
+        'lg': '1.125rem',   // 18px
+        'xl': '1.25rem',    // 20px
+        '2xl': '1.5rem',    // 24px
+        '3xl': '1.875rem',  // 30px
+        '4xl': '2.25rem',   // 36px
+        '5xl': '2.625rem',  // 42px
+        '6xl': '3rem',      // 48px
       },
       colors: {
         border: "hsl(var(--border))",
