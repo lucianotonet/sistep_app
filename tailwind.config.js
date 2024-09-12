@@ -74,10 +74,14 @@ module.exports = {
         },
       },
       borderRadius: {
-      	xl: "calc(var(--radius) + 4px)",
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        "4xl": "calc(var(--radius) * 4)",
+        "3xl": "calc(var(--radius) * 3)",
+        "2xl": "calc(var(--radius) * 2)",
+        xl: "calc(var(--radius) * 1.5)",
+        lg: "calc(var(--radius) * 1.25)",
+        md: "calc(var(--radius) / 2)",
+        sm: "calc(var(--radius) / 4)",
+        xs: "calc(var(--radius) / 8)",
       },
       keyframes: {
         "accordion-down": {

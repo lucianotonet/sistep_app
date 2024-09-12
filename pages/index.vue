@@ -1,8 +1,10 @@
 <template>
-  <div class="container flex flex-col items-center justify-between h-full mx-auto px-4 py-8 border flex-1 mt-2">
-    <div class="items-center justify-center flex flex-col text-center mb-8">
-      <Logo />
-      <!-- <h1 class="text-4xl font-bold mb-2">SISTEP</h1> -->
+  <div class="container flex flex-col items-center justify-between h-full mx-auto px-4 py-8 border rounded-sm flex-1 mt-2">
+    <div class="items-center mt-16 flex flex-col text-center mb-8">
+      <NuxtLink to="/"
+        class="logo flex flex-col items-center justify-center transition-all mb-4">
+        <h3 class="font-mono text-3xl font-bold">SISTEP</h3>
+      </NuxtLink>
       <p class="text-muted-foreground">Ferramenta de aplicação de testes psicológicos</p>
     </div>
 
@@ -29,7 +31,6 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTestStore } from '~/stores/test'
 import { Button } from '~/components/ui/button'
-import Logo from '@/components/Logo.vue';
 
 const router = useRouter()
 const testStore = useTestStore()

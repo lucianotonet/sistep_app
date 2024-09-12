@@ -1,7 +1,10 @@
 <template>
     <div class="min-h-dvh text-foreground bg-background flex flex-col p-4" v-cloak>
         <header class="flex h-auto items-center gap-4 px-2 md:px-4 lg:h-[60px] lg:px-6 sticky top-0 bg-background z-20">
-
+            <NuxtLink to="/"
+                class="logo flex flex-col items-center justify-center transition-all h-8 w-auto border rounded-sm p-2">
+                <h3 class="font-mono text-2xl font-bold">SISTEP</h3>
+            </NuxtLink>
             <DarkModeToggle class="ml-auto"></DarkModeToggle>
         </header>
 
