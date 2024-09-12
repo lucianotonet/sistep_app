@@ -1,11 +1,12 @@
 <template>
-  <main class="flex flex-1 flex-col items-center justify-center leading-tight select-none p-4 border">
+  <main class="flex flex-1 flex-col leading-tight select-none p-4 w-full">
     <transition name="fade" mode="out-in">
+      <!-- <div v-if="false" :key="'question-' + currentQuestion" -->
       <div v-if="currentQuestion < questions.length" :key="'question-' + currentQuestion"
-        class="flex flex-col text-left gap-4 w-full max-w-72 md:max-w-xl">
+        class="flex flex-col text-left gap-4 flex-1 w-full justify-between h-full">
         <p class="mb-4 text-xs text-muted-foreground">Questão {{ currentQuestion + 1 }} de {{ questions.length }}</p>
         <p class="mb-4 text-2xl">
-          <small>Na última semana...</small><br />
+          <small class="text-muted-foreground">Na última semana...</small><br />
           {{ questions[currentQuestion].text }}
         </p>
         <RadioGroup v-model="selectedOption">
@@ -14,27 +15,32 @@
             <Label :for="'option-' + index" class="ml-2 w-full text-left cursor-pointer">{{ option }}</Label>
           </div>
         </RadioGroup>
-        <div class="flex gap-4">
+        <div class="flex justify-between gap-4">
           <Button v-if="currentQuestion > 0" @click="goBack" variant="link" size="sm">← Voltar</Button>
-          <Button @click="answerQuestion" variant="default" size="sm" :disabled="selectedOption === null">Continuar
+          <Button @click="answerQuestion" class="ml-auto" variant="default" size="sm" :disabled="selectedOption === null">Continuar
             →</Button>
         </div>
       </div>
-      <div v-else :key="'results'" class="flex flex-col items-center text-center p-4 rounded shadow-lg">
+      <div v-else :key="'results'" class="flex flex-col text-left gap-10 flex-1 w-full items-center justify-center h-full">
         <p class="mb-4 text-2xl font-bold">Questionário concluído!</p>
-        <p class="mb-2 text-lg">Resultados:</p>
-        <div class="w-full max-w-md">
-          <BarChart :data="resultsData" :options="chartOptions" />
+        <p class="mb-2 text-lg text-muted-foreground">Resultados:</p>
+        <div class="flex flex-row items-center gap-10">
+          <div class="flex flex-col items-center gap-0">
+            <span class="text-xl font-semibold">{{ results.depression }}</span>
+            <span class="text-sm text-muted-foreground">Depressão</span>
+          </div>
+          <div class="flex flex-col items-center gap-0">
+            <span class="text-xl font-semibold">{{ results.anxiety }}</span>
+            <span class="text-sm text-muted-foreground">Ansiedade</span>
+          </div>
+          <div class="flex flex-col items-center gap-0">
+            <span class="text-xl font-semibold">{{ results.stress }}</span>
+            <span class="text-sm text-muted-foreground">Estresse</span>
+          </div>
         </div>
-        <div class="mt-4">
-          <p class="text-lg">Depressão: <strong>{{ results.depression }}</strong></p>
-          <p class="text-lg">Ansiedade: <strong>{{ results.anxiety }}</strong></p>
-          <p class="text-lg">Estresse: <strong>{{ results.stress }}</strong></p>
-        </div>
-        <div class="mt-6">
-          <Button @click="restartTest" variant="secondary" size="sm">↺ &nbsp; Reiniciar Teste</Button>
-          <Button @click="shareResults" variant="default" size="sm" class="ml-2">📤 &nbsp; Compartilhar
-            Resultados</Button>
+        <div class="flex flex-col gap-2 mt-6">
+          <Button @click="restartTest" variant="secondary" size="sm">Refazer Teste</Button>
+          <Button @click="shareResults" variant="default" size="sm">Enviar Resultados</Button>
         </div>
       </div>
     </transition>
@@ -45,7 +51,6 @@
 import { ref, watch } from 'vue';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import BarChart from '@/components/BarChart'; // Assumindo que você tem um componente de gráfico de barras
 
 const questions = ref([
   { text: 'Eu achei difícil acalmar-me.', category: 'stress' },
@@ -76,6 +81,15 @@ const currentQuestion = ref(0);
 const selectedOption = ref(null);
 const answers = ref([]);
 const results = ref({ depression: 0, anxiety: 0, stress: 0 });
+
+const testStore = useTestStore()
+
+testStore.initializeNewTest()
+
+// use test layout
+definePageMeta({
+  layout: 'test'
+})
 
 watch(currentQuestion, (newVal) => {
   selectedOption.value = answers.value.find(a => a.questionIndex === newVal)?.answer || null;
@@ -157,4 +171,3 @@ main {
   border-radius: 8px;
 }
 </style>
-

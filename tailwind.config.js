@@ -15,8 +15,9 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: [
-          '"Inter", sans-serif',
-          '"IBM Plex Sans", sans-serif',
+          '"Roboto", sans-serif', // Adicionando Roboto
+          '"Open Sans", sans-serif', // Adicionando Open Sans
+          '"Lexend", sans-serif', // Adicionando Lexend
         ],
         mono: [
           '"Fira Code", monospace',
@@ -25,6 +26,8 @@ module.exports = {
         ],
       },      
       fontSize: {
+        '3xs': '0.55rem',
+        '2xs': '0.66rem',
         xs: '0.77rem',
         sm: '0.88rem',
         base: '0.99rem',
